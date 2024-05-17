@@ -1,0 +1,16 @@
+{
+  "name": "dc-blogs",
+  "version": "1.0.0",
+  "description": "I am creating a blog website in order to learn how to make full-stack MERN projects, as I have learnt ReactJS and Redux Toolkit recently so, I wanted to explore how I can use ReactJS with NodeJS, ExpressJS, MongoDB to build full stack web applications.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon api/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
