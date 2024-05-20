@@ -21,3 +21,13 @@ app.listen(3000, () => {
 app.use(express.json());
 
 app.use("/api/auth", authRoutes)
+app.use((error, req, res, next) => {
+    const statusCode= error.statusCode || 500;
+    const message = error.message;
+
+    res.status(statusCode).json({
+        success: false,
+        statusCode,
+        message,
+    })
+})
