@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button, Label, TextInput } from "flowbite-react";
 
 const Signup = () => {
+
+  const username = useRef();
+  const email = useRef();
+  const password = useRef();
+
+  const onHandleSubmit = async (event) => {
+    event.preventDefault();
+    const data = {
+      username: username.current.value.trim(),
+      email: email.current.value.trim(),
+      password: password.current.value.trim(),
+    };
+    
+    try {
+      const response = await fetch("http://localhost:3000/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+    } catch (error) {
+      
+    }
+  };
   return (
     <div className="flex max-w-100vw min-h-screen mt-20 flex-col items-center md:items-start md:flex-row md:justify-center">
       <div className=" mb-10">
@@ -17,18 +42,19 @@ const Signup = () => {
         </p>
       </div>
       <div className=" w-96">
-        <form className="flex flex-col gap-4 mx-3">
+        <form onSubmit={(event) => onHandleSubmit(event)} className="flex flex-col gap-4 mx-3">
+          
           <div>
             <Label value="Username" />
-            <TextInput type="text" placeholder="Username" id="username" />
+            <TextInput ref={username} type="text" placeholder="Username" id="username" />
           </div>
           <div>
             <Label value="Email" />
-            <TextInput type="text" placeholder="Email" id="email" />
+            <TextInput ref={email} type="text" placeholder="Email" id="email" />
           </div>
           <div>
             <Label value="Password" />
-            <TextInput type="text" placeholder="Password" id="password" />
+            <TextInput ref={password} type="text" placeholder="Password" id="password" />
           </div>
           <Button gradientDuoTone="purpleToPink" type="submit">Sign Up</Button>
         </form>

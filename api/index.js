@@ -2,7 +2,16 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.route.js";
+import cors from 'cors';
 
+const app = express();
+
+const corsOptions = {
+    origin: 'http://localhost:5173', // Allow this origin
+    optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+  };
+
+  app.use(cors(corsOptions));
 dotenv.config();
 
 mongoose.connect(process.env.MONGODB_URI).then(() => {
@@ -12,7 +21,6 @@ mongoose.connect(process.env.MONGODB_URI).then(() => {
 })
 
 
-const app = express();
 
 app.listen(3000, () => {
     console.log("Server is running on port 3000");
