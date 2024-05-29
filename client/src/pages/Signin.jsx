@@ -1,17 +1,23 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Alert, Button, Label, TextInput } from "flowbite-react";
+import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  signInStart,
+  signInSuccess,
+  signInFailure,
+} from "../redux/user/userSlice";
 
 const Signin = () => {
   const email = useRef();
   const password = useRef();
-
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const { loading, error: errorMessage } = useSelector((state) => state.user);
   const Navigate = useNavigate();
 
   const onHandleSubmit = async (event) => {
     event.preventDefault();
+    dispatch(signInStart());
     const formData = {
       email: email.current.value.trim(),
       password: password.current.value.trim(),
@@ -23,7 +29,7 @@ const Signin = () => {
       formData.email === "" ||
       formData.password === ""
     ) {
-      return setErrorMessage("All fields are required");
+      dispatch(signInFailure("Please fill out all fields"));
     }
 
     try {
@@ -37,15 +43,14 @@ const Signin = () => {
 
       const data = await response.json();
       if (data.success === false) {
-        return setErrorMessage(data.message);
+        dispatch(signInFailure(data.message));
       }
-      setLoading(false);
       if (response.ok) {
+        dispatch(signInSuccess(data));
         Navigate("/");
       }
     } catch (error) {
-      setErrorMessage("Failed to sign in. Please try again later.");
-      setLoading(false);
+      dispatch(signInFailure(data.message));
     }
   };
   return (
@@ -59,9 +64,7 @@ const Signin = () => {
             DC Blogs
           </span>
         </Link>
-        <p className=" px-2 text-sm mt-5">
-          Welcone back to DC Blogs !
-        </p>
+        <p className=" px-2 text-sm mt-5">Welcone back to DC Blogs !</p>
         <div className=" px-2 text-sm">
           In this blog you will be able to access the admin panel free of cost.
         </div>
@@ -73,7 +76,13 @@ const Signin = () => {
         >
           <div>
             <Label value="Email" />
-            <TextInput ref={email} type="email" placeholder="Email" id="email" autoComplete="email"/>
+            <TextInput
+              ref={email}
+              type="email"
+              placeholder="Email"
+              id="email"
+              autoComplete="email"
+            />
           </div>
           <div>
             <Label value="Password" />
@@ -82,7 +91,7 @@ const Signin = () => {
               type="password"
               placeholder="Password"
               id="password"
-              autocomplete="current-password"
+              autoComplete="current-password"
             />
           </div>
           <Button
