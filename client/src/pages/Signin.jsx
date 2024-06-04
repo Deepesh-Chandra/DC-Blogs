@@ -7,6 +7,7 @@ import {
   signInSuccess,
   signInFailure,
 } from "../redux/user/userSlice";
+import OAuth from "../components/OAuth";
 
 const Signin = () => {
   const email = useRef();
@@ -108,6 +109,7 @@ const Signin = () => {
               "Sign In"
             )}
           </Button>
+          <OAuth />
         </form>
         <div className="mt-2 mx-3 text-sm">
           <span> Don't have an account ? </span>
