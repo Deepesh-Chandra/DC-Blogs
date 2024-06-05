@@ -28,6 +28,7 @@ const OAuth = () => {
         }),
       });
       const data = await response.json();
+    
       if (response.ok) {
         dispatch(signInSuccess(data))
       }
