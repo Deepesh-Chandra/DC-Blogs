@@ -9,7 +9,6 @@ import { toggleTheme } from "../redux/theme/toggleThemeSlice";
 const Header = () => {
   const path = useLocation().pathname;
   const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser);
   const { darkMode } = useSelector((state) => state.theme);
   const dispatch = useDispatch();
   return (

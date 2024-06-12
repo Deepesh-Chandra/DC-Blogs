@@ -9,9 +9,9 @@ const app = express();
 const corsOptions = {
     origin: 'http://localhost:5173', // Allow this origin
     optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
-  };
+};
 
-  app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 dotenv.config();
 
 mongoose.connect(process.env.MONGODB_URI).then(() => {
@@ -30,7 +30,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes)
 app.use((error, req, res, next) => {
-    const statusCode= error.statusCode || 500;
+    const statusCode = error.statusCode || 500;
     const message = error.message;
 
     res.status(statusCode).json({

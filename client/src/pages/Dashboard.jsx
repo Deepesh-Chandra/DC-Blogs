@@ -22,7 +22,7 @@ const Dashboard = () => {
         <DashboardSidebar />
       </div>
 
-      <div className="">{tab=== "profile" && <DashboardProfile />}</div>
+      <div className="w-full">{tab=== "profile" && <DashboardProfile />}</div>
     </div>
   );
 };
