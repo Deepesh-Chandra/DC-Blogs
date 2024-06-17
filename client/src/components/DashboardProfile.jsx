@@ -18,8 +18,6 @@ const DashboardProfile = () => {
   const [imageUploadProgress, setImageUploadProgress] = useState(null);
   const [imageUploadError, setImageUploadError] = useState(null);
 
-  console.log(imageUploadError, imageUploadProgress);
-
   const filePicker = useRef();
 
   const handleImageChange = (event) => {

@@ -3,15 +3,16 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.route.js";
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 const app = express();
+app.use(cookieParser());
 
-const corsOptions = {
-    origin: 'http://localhost:5173', // Allow this origin
-    optionsSuccessStatus: 200 // Some legacy browsers (IE11, various SmartTVs) choke on 204
-};
+app.use(cors({
+    origin: 'http://localhost:5173'
+  }));
 
-app.use(cors(corsOptions));
+
 dotenv.config();
 
 mongoose.connect(process.env.MONGODB_URI).then(() => {
