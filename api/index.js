@@ -17,6 +17,7 @@ dotenv.config();
 
 mongoose.connect(process.env.MONGODB_URI).then(() => {
     console.log("MongoDB connected successfully");
+    //.then() is used because it is an asynchronous function to catch the resolved promises and try() is a synchronous function. Mongoose uses asynchrous way to connect with database.
 }).catch((err) => {
     console.log(err);
 })

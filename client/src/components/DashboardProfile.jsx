@@ -107,9 +107,7 @@ const DashboardProfile = () => {
             }`}
           />
         </div>
-        {imageUploadError && (
-          <Alert color='failure'>{imageUploadError}</Alert>
-        )}
+        {imageUploadError && <Alert color="failure">{imageUploadError}</Alert>}
         <TextInput
           type="text"
           id="username"
